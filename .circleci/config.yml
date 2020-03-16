@@ -1,5 +1,4 @@
-# Python CircleCI 2.0 configuration file
-version: 3.1
+version: 2.2
 jobs:
   one:
     docker:
@@ -13,6 +12,7 @@ jobs:
           command: |
             python3 -m venv main
             pip install -r requirements.txt
+            pip install flake8 pytest pytest-cov
       # Step 3: run linter and tests
       - run:
           name: run tests
