@@ -22,7 +22,5 @@ class CardsDeckTest(unittest.TestCase):
         assert response.status_code == 200
         self.assertEqual(response.json()['success'], True)
 
-
-    def
 if __name__ == '__main__':
     unittest.main()
