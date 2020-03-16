@@ -1,12 +1,9 @@
 # Python CircleCI 2.0 configuration file
 version: 3.1
 jobs:
-  build:
+  one:
     docker:
       - image: circleci/python:3.7
-
-    working_directory: ~/CICD-Task
-
     steps:
       # Step 1: obtain repo from GitHub
       - checkout
@@ -21,3 +18,8 @@ jobs:
           name: run tests
           command: |
             pytest -v --cov
+workflows:
+  version:2
+  one_workflow:
+    jobs:
+      - one
