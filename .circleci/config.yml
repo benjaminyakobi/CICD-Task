@@ -17,3 +17,7 @@ jobs:
           name: run tests
           command: |
             python -m unittest test/CardsDeck_test.py
+      - store_test_results:
+          path: phpunit-out
+      - store_artifacts:
+          path: phpunit-out
