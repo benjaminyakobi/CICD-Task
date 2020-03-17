@@ -19,6 +19,6 @@ jobs:
             python -m unittest discover -v test -p "*_test.py"
             
       - store_test_results:
-          path: phpunit-out
+          path: test-results
       - store_artifacts:
-          path: phpunit-out
+          path: test-results
