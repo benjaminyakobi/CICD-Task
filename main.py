@@ -26,9 +26,9 @@ def main():
         menu = input()
     #    clear()  # clear the screen
         switcher = {
-            1: lambda x: CardsDeck.getCards(1),
-            2: lambda x: CardsDeck.getCards(2),
-            3: lambda x: CardsDeck.getCards(3),
+            1: lambda x: CardsDeck.get_cards(1),
+            2: lambda x: CardsDeck.get_cards(2),
+            3: lambda x: CardsDeck.get_cards(3),
             4: lambda x: close(),
         }
         switcher.get(int(menu))(0)
