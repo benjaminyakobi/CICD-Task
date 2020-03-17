@@ -142,3 +142,4 @@ cython_debug/
 media
 static
 /.idea/shelf/Default_Changelist/shelved.patch
+config.yml

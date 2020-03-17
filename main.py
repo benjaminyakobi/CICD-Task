@@ -20,7 +20,8 @@ def main():
         1. Get a brand new deck
         2. Get a brand new *shuffled* deck
         3. Enter number of cards to draw
-        4. Exit
+        4. Draw a partial deck
+        5. Exit
         """)
 
         menu = input()
@@ -29,7 +30,8 @@ def main():
             1: lambda x: CardsDeck.get_cards(1),
             2: lambda x: CardsDeck.get_cards(2),
             3: lambda x: CardsDeck.get_cards(3),
-            4: lambda x: close(),
+            4: lambda x: CardsDeck.get_cards(4),
+            5: lambda x: close(),
         }
         switcher.get(int(menu))(0)
 
