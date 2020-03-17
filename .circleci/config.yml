@@ -1,6 +1,6 @@
 version: 2.2
 jobs:
-  one:
+  build:
     docker:
       - image: circleci/python:3.7
     steps:
@@ -16,13 +16,8 @@ jobs:
       - run:
           name: run tests
           command: |
-<<<<<<< HEAD
-            pytest -v --cov
-workflows:
-  version:2
-  one_workflow:
-    jobs:
-      - one
-=======
             python -m unittest test/CardsDeck_test.py
->>>>>>> d1262d6f26915d8889d0128e48361b7518a1ed75
+      - store_test_results:
+          path: phpunit-out
+      - store_artifacts:
+          path: phpunit-out
