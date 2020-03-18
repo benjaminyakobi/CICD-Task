@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import Mock, patch, MagicMock
-from src.CardsDeck import CardsDeck
+from unittest.mock import Mock, patch
+import CardLogic
 from requests.exceptions import Timeout
 import requests
 
@@ -51,13 +51,13 @@ def getpartial_deck(cards=None):
 
 class CardsDeckTestCreation(unittest.TestCase):
 
-    @patch('src.CardsDeck.CardsDeck.get_new_unshuffled_deck')
+    @patch('CardLogic.CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck(self, mock_get_new_unshuffled_card_deck):
         # mock init
         mock_get_new_unshuffled_card_deck.return_value.status_code = 200
         mock_get_new_unshuffled_card_deck.return_value.json.return_value = NEW_DECK_UNSHUFFLED
         # expected creating new deck, status code 200 and deck success == True
-        n = CardsDeck()
+        n = CardLogic.CardsDeck()
         response = n.get_new_unshuffled_deck()
         # assert
         assert response.status_code == 200
@@ -66,20 +66,20 @@ class CardsDeckTestCreation(unittest.TestCase):
         # success when cards == 52
         self.assertEqual(response.json()['remaining'], 52)
 
-    @patch('src.CardsDeck.CardsDeck.get_new_unshuffled_deck')
+    @patch('CardLogic.CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck_is_full(self, mock_get_new_unshuffled_card_deck):
         # mock init
         mock_get_new_unshuffled_card_deck.return_value.status_code = 200
         mock_get_new_unshuffled_card_deck.return_value.json.return_value = NEW_DECK_UNSHUFFLED
         # expected creating new deck, status code 200 and deck success == True
-        n = CardsDeck()
+        n = CardLogic.CardsDeck()
         response = n.get_new_unshuffled_deck()
         # success when cards == 52
         self.assertEqual(response.json()['remaining'], 52)
 
     def test_get_new_shuffled_deck_expected_true(self):
         # mock the card deck
-        new_ush_deck = Mock(CardsDeck)
+        new_ush_deck = Mock(CardLogic.CardsDeck)
         new_ush_deck.get_new_unshuffled_deck.json.return_value = NEW_DECK_SHUFFLED
         # assume deck created as intended
         cards_remaining = 52
@@ -91,7 +91,7 @@ class CardsDeckTestCreation(unittest.TestCase):
 
     def test_get_new_shuffled_deck_expected_false(self):
         # mock the card deck
-        new_ush_deck = Mock(CardsDeck)
+        new_ush_deck = Mock(CardLogic.CardsDeck)
         new_ush_deck.get_new_unshuffled_deck.json.return_value = NEW_DECK_UNSHUFFLED
         # assume deck created as intended
         cards_remaining = 52
@@ -102,14 +102,14 @@ class CardsDeckTestCreation(unittest.TestCase):
         with self.assertRaises(AssertionError):
             self.assertEqual(new_ush_deck.get_new_unshuffled_deck.json.return_value['shuffled'], is_shuffled)
 
-    @patch('src.CardsDeck.CardsDeck.draw_cards')
+    @patch('CardLogic.CardsDeck.draw_cards')
     def test_draws_card_new_deck_returns_two(self, mock_draw_cards):
         # simulated deck to test if the deck is correctly created
 
         mock_draw_cards.return_value.status_code = 200
         mock_draw_cards.return_value.json.return_value = NEW_PARTIAL_DECK
 
-        n = CardsDeck()
+        n = CardLogic.CardsDeck()
         response = n.draw_cards()
 
         assert response.status_code == 200
@@ -122,7 +122,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         # summation of each card returned, expected 2
         self.assertEqual(sum(list(1 for x in response.json()['cards'])), size_of_cards)
     def test_get_response_succeeded(self):
-        mocked_deck = CardsDeck()
+        mocked_deck = CardLogic.CardsDeck()
         # mock CardsDeck.get_new_partial_deck
         mocked_deck.get_new_partial_deck = Mock()
         # load with incorrect url
@@ -131,7 +131,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         mocked_deck.get_new_partial_deck.loads.assert_called_with('{}'.format(URL_NEW_PARTIAL_DECK+'AS'))
 
     def test_get_response_failed(self):
-        mocked_deck = CardsDeck()
+        mocked_deck = CardLogic.CardsDeck()
         # mock CardsDeck.get_new_partial_deck
         mocked_deck.get_new_partial_deck = Mock()
         # load with incorrect url

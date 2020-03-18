@@ -1,8 +1,12 @@
+# Python CircleCI 2.0 configuration file
 version: 2.2
 jobs:
   build:
     docker:
       - image: circleci/python:3.7
+
+    working_directory: ~/CICDCardsDeck
+
     steps:
       # Step 1: obtain repo from GitHub
       - checkout
@@ -12,13 +16,9 @@ jobs:
           command: |
             python3 -m venv main
             pip install -r requirements.txt
+            pip install flake8 pytest pytest-cov
       # Step 3: run linter and tests
       - run:
           name: run tests
           command: |
-            python -m unittest discover -v test -p "*_test.py"
-            
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
+            pytest -v --cov
