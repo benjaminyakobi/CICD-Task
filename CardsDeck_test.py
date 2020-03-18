@@ -166,7 +166,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         # expected to be true
         self.assertEqual(response_mock.json()['deck_id'], response_mock2.json()['deck_id']) == True
 
-    def test_two_new_decks_are_same(self):
+    def test_two_new_decks_are_not_same(self):
         response_mock = Mock()
         response_mock.status_code = 200
         response_mock.json.return_value = NEW_PARTIAL_DECK
