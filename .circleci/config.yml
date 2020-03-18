@@ -21,5 +21,4 @@ jobs:
       - run:
           name: run tests
           command: |
-            flake8 --exclude=venv* --statistics
             pytest -v --cov=calculator
