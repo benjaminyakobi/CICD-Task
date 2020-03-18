@@ -121,6 +121,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         self.assertEqual(response.json()['remaining'], cards_left_in_deck)
         # summation of each card returned, expected 2
         self.assertEqual(sum(list(1 for x in response.json()['cards'])), size_of_cards)
+
     def test_get_response_succeeded(self):
         mocked_deck = CardLogic.CardsDeck()
         # mock CardsDeck.get_new_partial_deck
@@ -128,7 +129,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         # load with incorrect url
         mocked_deck.get_new_partial_deck.loads('https://deckofcardsapi.com/api/deck/new/shuffle/?cards=AS')
         # expecting wrong url
-        mocked_deck.get_new_partial_deck.loads.assert_called_with('{}'.format(URL_NEW_PARTIAL_DECK+'AS'))
+        mocked_deck.get_new_partial_deck.loads.assert_called_with('{}'.format(URL_NEW_PARTIAL_DECK + 'AS'))
 
     def test_get_response_failed(self):
         mocked_deck = CardLogic.CardsDeck()
@@ -153,6 +154,29 @@ class CardsDeckTestCreation(unittest.TestCase):
         assert getpartial_deck()['success'] == True
         # check that get was called twice
         assert requests.get.call_count == 2
+
+    def test_two_new_decks_are_same(self):
+        response_mock = Mock()
+        response_mock.status_code = 200
+        response_mock.json.return_value = NEW_PARTIAL_DECK
+
+        response_mock2 = Mock()
+        response_mock2.status_code = 200
+        response_mock2.json.return_value = NEW_PARTIAL_DECK
+        # expected to be true
+        self.assertEqual(response_mock.json()['deck_id'], response_mock2.json()['deck_id']) == True
+
+    def test_two_new_decks_are_same(self):
+        response_mock = Mock()
+        response_mock.status_code = 200
+        response_mock.json.return_value = NEW_PARTIAL_DECK
+
+        response_mock2 = Mock()
+        response_mock2.status_code = 200
+        response_mock2.json.return_value = NEW_PARTIAL_DECK
+        response_mock2.json()['deck_id'] = "211111111111"
+        # expected to be false
+        self.assertEqual(response_mock.json()['deck_id'], response_mock2.json()['deck_id']) == False
 
 
 if __name__ == '__main__':
