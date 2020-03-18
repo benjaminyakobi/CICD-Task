@@ -1,6 +1,6 @@
 import os
 from time import sleep
-from src.CardsDeck import CardsDeck
+import CardsDeck
 
 #def clear():
 #    sleep(3)
