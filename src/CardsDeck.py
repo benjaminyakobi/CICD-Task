@@ -53,11 +53,13 @@ class CardsDeck:
         return api_response
 
     @staticmethod
-    def get_new_partial_deck(cards=None):
+    def get_new_partial_deck():
         # The value, one of A (for an ace), 2, 3, 4, 5, 6, 7, 8, 9, 0 (for a ten), J (jack), Q (queen), or K (king);
         # The suit, one of S (Spades), D (Diamonds), C (Clubs), or H (Hearts).
 
-        api_result = requests.get(URL_NEW_PARTIAL_DECK+'KH,AS')
+        cards = 'AH,AS,AC,AD'
+        api_result = requests.get(URL_NEW_PARTIAL_DECK + cards)
+
         api_response = api_result.json()
         print(api_response)
         return api_response
@@ -79,11 +81,9 @@ class CardsDeck:
     def get_deck_id(self):
         return self.deck_id
 
-
     def save_deck_id_to_txt(self):
         with open('deck_id.txt', 'wb') as f:
             f.write(str(self.deck_id))
-
 
     def extract_last_deck_id(self):
         deck_id = ''

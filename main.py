@@ -20,7 +20,7 @@ def main():
         1. Get a brand new deck
         2. Get a brand new *shuffled* deck
         3. Enter number of cards to draw
-        4. Draw a partial deck
+        4. Draw a cheating 4 aces deck
         5. Exit
         """)
 
