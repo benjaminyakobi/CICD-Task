@@ -27,17 +27,19 @@ NEW_PARTIAL_DECK = {
     "remaining": 50
 }
 NEW_DECK_SHUFFLED = {
-            "success": True,
-            "deck_id": "111111111111",
-            "shuffled": True,
-            "remaining": 52
-        }
-NEW_DECK_UNSHUFFLED ={
-                "success": True,
-                "deck_id": "111111111111",
-                "shuffled": False,
-                "remaining": 52
-            }
+    "success": True,
+    "deck_id": "111111111111",
+    "shuffled": True,
+    "remaining": 52
+}
+NEW_DECK_UNSHUFFLED = {
+    "success": True,
+    "deck_id": "111111111111",
+    "shuffled": False,
+    "remaining": 52
+}
+
+
 def getpartial_deck(cards=None):
     # The value, one of A (for an ace), 2, 3, 4, 5, 6, 7, 8, 9, 0 (for a ten), J (jack), Q (queen), or K (king);
     # The suit, one of S (Spades), D (Diamonds), C (Clubs), or H (Hearts).
@@ -47,9 +49,7 @@ def getpartial_deck(cards=None):
     return None
 
 
-class CardsDeckTest(unittest.TestCase):
-    def test_calling_api(self):
-        pass
+class CardsDeckTestCreation(unittest.TestCase):
 
     @patch('src.CardsDeck.CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck(self, mock_get_new_unshuffled_card_deck):
@@ -121,6 +121,14 @@ class CardsDeckTest(unittest.TestCase):
         self.assertEqual(response.json()['remaining'], cards_left_in_deck)
         # summation of each card returned, expected 2
         self.assertEqual(sum(list(1 for x in response.json()['cards'])), size_of_cards)
+    def test_get_response_succeeded(self):
+        mocked_deck = CardsDeck()
+        # mock CardsDeck.get_new_partial_deck
+        mocked_deck.get_new_partial_deck = Mock()
+        # load with incorrect url
+        mocked_deck.get_new_partial_deck.loads('https://deckofcardsapi.com/api/deck/new/shuffle/?cards=AS')
+        # expecting wrong url
+        mocked_deck.get_new_partial_deck.loads.assert_called_with('{}'.format(URL_NEW_PARTIAL_DECK+'AS'))
 
     def test_get_response_failed(self):
         mocked_deck = CardsDeck()
@@ -131,7 +139,7 @@ class CardsDeckTest(unittest.TestCase):
         # expecting wrong url
         mocked_deck.get_new_partial_deck.loads.assert_called_with('{}'.format(URL_NEW_PARTIAL_DECK))
 
-    def test_create_new_deck_timeout_retry(self):
+    def test_create_new_deck_timeout_retry_pass(self):
         # imitating response
         response_mock = Mock()
         response_mock.status_code = 200
