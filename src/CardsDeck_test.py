@@ -51,7 +51,7 @@ def getpartial_deck(cards=None):
 
 class CardsDeckTestCreation(unittest.TestCase):
 
-    @patch('src.CardsDeck.CardsDeck.get_new_unshuffled_deck')
+    @patch('CardsDeck.CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck(self, mock_get_new_unshuffled_card_deck):
         # mock init
         mock_get_new_unshuffled_card_deck.return_value.status_code = 200
@@ -66,7 +66,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         # success when cards == 52
         self.assertEqual(response.json()['remaining'], 52)
 
-    @patch('src.CardsDeck.CardsDeck.get_new_unshuffled_deck')
+    @patch('CardsDeck.CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck_is_full(self, mock_get_new_unshuffled_card_deck):
         # mock init
         mock_get_new_unshuffled_card_deck.return_value.status_code = 200
@@ -102,7 +102,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         with self.assertRaises(AssertionError):
             self.assertEqual(new_ush_deck.get_new_unshuffled_deck.json.return_value['shuffled'], is_shuffled)
 
-    @patch('src.CardsDeck.CardsDeck.draw_cards')
+    @patch('CardsDeck.CardsDeck.draw_cards')
     def test_draws_card_new_deck_returns_two(self, mock_draw_cards):
         # simulated deck to test if the deck is correctly created
 
