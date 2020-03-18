@@ -21,4 +21,4 @@ jobs:
       - run:
           name: run tests
           command: |
-            pytest -v --cov=calculator
+            pytest -v --cov
