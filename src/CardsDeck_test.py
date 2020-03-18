@@ -66,7 +66,7 @@ class CardsDeckTestCreation(unittest.TestCase):
         # success when cards == 52
         self.assertEqual(response.json()['remaining'], 52)
 
-    @patch('CardsDeck.CardsDeck.get_new_unshuffled_deck')
+    @patch('CardsDeck.get_new_unshuffled_deck')
     def test_get_new_unshuffled_card_deck_is_full(self, mock_get_new_unshuffled_card_deck):
         # mock init
         mock_get_new_unshuffled_card_deck.return_value.status_code = 200
