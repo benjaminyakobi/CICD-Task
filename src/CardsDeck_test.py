@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch, MagicMock
-import src.CardsDeck as CardsDeck
+import CardsDeck
 from requests.exceptions import Timeout
 import requests
 
